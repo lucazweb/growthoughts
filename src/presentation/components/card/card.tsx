@@ -4,7 +4,7 @@ export const Card = ({ children }: PropsWithChildren) => {
   return (
     <div
       data-testid="card-component"
-      className="box-content h-32 w-32 p-4 border-4 shadow-md"
+      className="box-content rounded-lg h-96 w-96 p-4 border-1 shadow-lg  hover:shadow-md"
     >
       {children}
     </div>
