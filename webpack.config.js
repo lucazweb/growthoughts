@@ -14,7 +14,28 @@ module.exports = {
       test: /\.ts(x?)$/,
       loader: 'ts-loader',
       exclude: /\node_modules/,
-    }]
+    },{
+      test: /\.css$/i,
+      include: path.resolve(__dirname, 'src'),
+      use: ['style-loader', 'css-loader', 'postcss-loader'],
+    },
+    {
+      test: /\.scss$/,
+      use: [
+        {
+          loader: 'style-loader',
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            module: true,
+          },
+        },
+        {
+          loader: 'sass-loader',
+        },
+      ],
+    },]
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.scss'],

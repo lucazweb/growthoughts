@@ -1,10 +1,15 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./global.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: () => <h2>Im a React Component </h2>,
+    Component: () => (
+      <div className="shadow-md">
+        <h2 className="bg-red-900 text-white">I'm a React Component </h2>
+      </div>
+    ),
   },
 ]);
 
