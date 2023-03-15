@@ -20,10 +20,12 @@ describe("Card component render", () => {
     const { getByTestId } = render(<Card />);
     const component = getByTestId("card-component");
     expect(component.classList.contains("box-content")).toBe(true);
-    expect(component.classList.contains("h-32")).toBe(true);
-    expect(component.classList.contains("w-32")).toBe(true);
+    expect(component.classList.contains("rounded-lg")).toBe(true);
+    expect(component.classList.contains("h-96")).toBe(true);
+    expect(component.classList.contains("w-96")).toBe(true);
     expect(component.classList.contains("p-4")).toBe(true);
-    expect(component.classList.contains("border-4")).toBe(true);
-    expect(component.classList.contains("shadow-md")).toBe(true);
+    expect(component.classList.contains("border-1")).toBe(true);
+    expect(component.classList.contains("shadow-lg")).toBe(true);
+    expect(component.classList.contains("hover:shadow-md")).toBe(true);
   });
 });
