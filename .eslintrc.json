@@ -4,7 +4,7 @@
       "version": "detect"
     }
   },
-  "extends": ["standard-with-typescript", "plugin:react/recommended"],
+  "extends": ["standard-with-typescript", "plugin:react/recommended", "prettier"],
   "plugins": ["react"],
   "parserOptions": {
     "project": "./tsconfig.json"
@@ -23,7 +23,9 @@
     "react/jsx-uses-react": "error",
     "react/jsx-uses-varas": "off",
     "comma-dangle": "off",
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+    "@typescript/comma-dangle": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off"
 
   }
 }

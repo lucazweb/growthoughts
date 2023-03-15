@@ -1,18 +1,20 @@
-import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./global.css";
+import React from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './global.css'
+
+const Temp = () => (
+  <div className="shadow-md">
+    <h2 className="bg-red-900 text-white">I'm a React Component </h2>
+  </div>
+)
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    Component: () => (
-      <div className="shadow-md">
-        <h2 className="bg-red-900 text-white">I'm a React Component </h2>
-      </div>
-    ),
+    path: '/',
+    Component: Temp,
   },
-]);
+])
 
-export default function () {
-  return <RouterProvider router={router} />;
+export default function Router() {
+  return <RouterProvider router={router} />
 }

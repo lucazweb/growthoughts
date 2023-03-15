@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from 'react'
 
 export const Card = ({ children }: PropsWithChildren) => {
   return (
@@ -8,5 +8,5 @@ export const Card = ({ children }: PropsWithChildren) => {
     >
       {children}
     </div>
-  );
-};
+  )
+}
