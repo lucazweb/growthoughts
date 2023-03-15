@@ -38,6 +38,7 @@
   },
   "scripts": {
     "start": "webpack && webpack-dev-server --hot --open",
-    "test": "jest --passWithNoTests --no-cache"
+    "test": "jest --passWithNoTests --no-cache",
+    "test:watch": "jest --watch --no-cache"
   }
 }
