@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card } from '@/presentation/components'
-import { SignInForm } from './signin.form'
+import { SignInForm } from './form'
+import Context from '@/presentation/contexts/form-context'
 
 export const SignIn = () => {
-  // should have page title
-  // should have signin form
-  // should have link to signup page
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: '',
+    errors: [],
+  })
 
   return (
     <div className="container mx-auto">
@@ -19,7 +22,9 @@ export const SignIn = () => {
       </div>
 
       <Card>
-        <SignInForm />
+        <Context.Provider value={{ credentials, setCredentials }}>
+          <SignInForm />
+        </Context.Provider>
         <div className="mt-3 mb-3 mx-auto">
           <button
             className="flex justify-end mt-2 text-md text-gray-600 hover:underline mx-auto"

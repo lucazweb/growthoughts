@@ -3,13 +3,20 @@ import React, { type InputHTMLAttributes, useState } from 'react'
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isInvalid?: boolean
   errorMessage?: string
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Input = ({ isInvalid, errorMessage, ...rest }: InputProps) => {
+export const Input = ({
+  isInvalid,
+  errorMessage,
+  onChange,
+  ...rest
+}: InputProps) => {
   const [value, setValue] = useState<string>('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
+    onChange?.(e)
   }
 
   return (
