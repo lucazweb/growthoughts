@@ -17,14 +17,19 @@ export const Input = ({ isInvalid, errorMessage, ...rest }: InputProps) => {
       <input
         {...rest}
         data-testid="input-component"
-        className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md mt-3 mb-3"
+        className={`w-full rounded-md border ${
+          isInvalid ? 'border-red-700' : 'border-[#e0e0e0]'
+        } bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md mt-3`}
         onChange={handleChange}
         value={value}
       />
       {isInvalid && (
-        <small data-testid="input-error-message">
+        <p
+          data-testid="input-error-message"
+          className="text-red-700 mt-1 text-sm"
+        >
           {errorMessage || 'Algo deu errado'}
-        </small>
+        </p>
       )}
     </div>
   )
