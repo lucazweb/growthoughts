@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from '@/presentation/components'
+import { Card, Input } from '@/presentation/components'
 
 export const SignIn = () => {
   // should have page title
@@ -21,21 +21,17 @@ export const SignIn = () => {
         <form data-testid="signin-form">
           <fieldset>
             <label hidden>E-mail</label>
-            <input
+            <Input
               type="email"
-              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md mt-3 mb-3"
+              errorMessage="Insira um E-mail válido"
               placeholder="E-mail"
+              isInvalid
             />
           </fieldset>
 
           <fieldset>
             <label hidden>Senha</label>
-            <input
-              autoComplete="off"
-              type="password"
-              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md mt-3 mb-3"
-              placeholder="Senha"
-            />
+            <Input autoComplete="off" type="password" placeholder="Senha" />
           </fieldset>
           <button
             data-testid="signin-button"
