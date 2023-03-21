@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { EmailValidation } from './email-validation'
-import { EmailError } from '../errors/email-error'
+import { EmailError } from '@/validation/errors'
 
 const makeSut = () => new EmailValidation(faker.random.word())
 
