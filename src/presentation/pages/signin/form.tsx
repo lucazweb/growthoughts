@@ -20,7 +20,7 @@ export const SignInForm = () => {
           type="email"
           name="email"
           autoComplete="off"
-          errorMessage="Insira um E-mail válido"
+          errorMessage={credentials.errors.email}
           placeholder="E-mail"
           onChange={handleInputValues}
           value={credentials.email}
@@ -33,6 +33,7 @@ export const SignInForm = () => {
           autoComplete="off"
           name="password"
           type="password"
+          errorMessage={credentials.errors.password}
           onChange={handleInputValues}
           value={credentials.password}
           placeholder="Senha"
