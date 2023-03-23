@@ -1,14 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card } from '@/presentation/components'
 import { SignInForm } from './form'
 import Context from '@/presentation/contexts/form-context'
+import { signInValidation } from './signin-validation-factory'
 
 export const SignIn = () => {
-  const [credentials, setCredentials] = useState({
+  const [credentials, setCredentials] = useState<{
+    email: string
+    password: string
+    errors: Record<string, string | null>
+  }>({
     email: '',
     password: '',
-    errors: [],
+    errors: {
+      email: null,
+      password: null,
+    },
   })
+
+  useEffect(() => {
+    setCredentials({
+      ...credentials,
+      errors: {
+        email: signInValidation.validate('email', credentials.email),
+        password: signInValidation.validate('password', credentials.password),
+      },
+    })
+  }, [credentials.email, credentials.password])
 
   return (
     <div className="container mx-auto">

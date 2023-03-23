@@ -2,8 +2,8 @@ import { type FieldValidation } from '@/validation/protocols'
 import { EmailError } from '@/validation/errors'
 
 export class EmailValidation implements FieldValidation {
-  constructor(readonly name: string) {
-    this.name = name
+  constructor(readonly field: string) {
+    this.field = field
   }
 
   validation(value: string) {
