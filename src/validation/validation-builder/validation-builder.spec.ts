@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
-import { RequiredValidation } from '../validations/required-validation'
+import { RequiredValidation } from '@/validation/validations'
 import { ValidationBuilder as sut } from './validation-builder'
-import { EmailValidation } from '../validations/email-validation'
+import { EmailValidation } from '@/validation//validations'
 
 describe('Validation Builder tests', () => {
   test('should return an array of required validation on build', () => {
