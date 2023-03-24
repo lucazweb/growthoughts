@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Card } from '@/presentation/components'
 import { SignInForm } from './form'
 import Context from '@/presentation/contexts/form-context'
-import { signInValidation } from './signin-validation-factory'
+import { signInValidation as validation } from './signin-validation-factory'
 
 export const SignIn = () => {
   const [credentials, setCredentials] = useState<{
@@ -16,11 +16,15 @@ export const SignIn = () => {
   })
 
   useEffect(() => {
+    const email = validation.validate('email', credentials.email) || null
+    const password =
+      validation.validate('password', credentials.password) || null
+
     setCredentials({
       ...credentials,
       errors: {
-        email: signInValidation.validate('email', credentials.email),
-        password: signInValidation.validate('password', credentials.password),
+        email,
+        password,
       },
     })
   }, [credentials.email, credentials.password])
