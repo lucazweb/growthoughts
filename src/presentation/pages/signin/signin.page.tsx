@@ -12,10 +12,7 @@ export const SignIn = () => {
   }>({
     email: '',
     password: '',
-    errors: {
-      email: null,
-      password: null,
-    },
+    errors: {},
   })
 
   useEffect(() => {
@@ -34,9 +31,9 @@ export const SignIn = () => {
         <h1 data-testid="app-title" className="text-6xl text-center mt-6 mb-6">
           GrowThoughts
         </h1>
-        <p className="text-center w-6/12 mx-auto">
+        <h3 className="text-center w-6/12 mx-auto text-2xl mb-12">
           Organize e conclua suas metas
-        </p>
+        </h3>
       </div>
 
       <Card>

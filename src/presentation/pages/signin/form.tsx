@@ -41,7 +41,7 @@ export const SignInForm = () => {
       </fieldset>
       <button
         data-testid="signin-button"
-        className="w-full disabled:bg-gray-400 hover:shadow-form rounded-md bg-green-700 py-3 px-8 text-base font-semibold text-white outline-none mt-3 mb-3"
+        className="w-full disabled:bg-gray-400 hover:shadow-form rounded-md bg-green-700 py-3 px-8 text-base font-semibold text-white outline-none mt-16 mb-3"
         disabled={!credentials.email || !credentials.password}
       >
         Entrar
