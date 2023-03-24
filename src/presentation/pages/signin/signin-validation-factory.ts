@@ -3,5 +3,5 @@ import { ValidationComposite } from '@/validation/validations'
 
 export const signInValidation = ValidationComposite.build([
   ...ValidationBuilder.field('email').required().email().build(),
-  ...ValidationBuilder.field('password').required().build(),
+  ...ValidationBuilder.field('password').min(5).build(),
 ])

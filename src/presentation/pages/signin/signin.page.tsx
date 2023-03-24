@@ -16,15 +16,15 @@ export const SignIn = () => {
   })
 
   useEffect(() => {
-    const email = validation.validate('email', credentials.email) || null
-    const password =
-      validation.validate('password', credentials.password) || null
-
     setCredentials({
       ...credentials,
       errors: {
-        email,
-        password,
+        email: !credentials.email
+          ? null
+          : validation.validate('email', credentials.email),
+        password: !credentials.password
+          ? null
+          : validation.validate('password', credentials.password),
       },
     })
   }, [credentials.email, credentials.password])
