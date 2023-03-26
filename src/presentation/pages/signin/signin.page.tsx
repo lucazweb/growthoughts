@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Card } from '@/presentation/components'
 import { SignInForm } from './form'
 import Context from '@/presentation/contexts/form-context'
@@ -14,6 +15,8 @@ export const SignIn = () => {
     password: '',
     errors: {},
   })
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     setCredentials({
@@ -48,6 +51,9 @@ export const SignIn = () => {
           <button
             className="flex justify-end mt-2 text-md text-gray-600 hover:underline mx-auto"
             data-testid="signup-button"
+            onClick={() => {
+              navigate('/signup')
+            }}
           >
             Criar uma conta
           </button>
