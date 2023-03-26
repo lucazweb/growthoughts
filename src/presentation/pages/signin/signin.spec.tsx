@@ -2,9 +2,10 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { SignIn } from './signin.page'
+import { BrowserRouter } from 'react-router-dom'
 
 const makeSut = () => {
-  const page = render(<SignIn />)
+  const page = render(<SignIn />, { wrapper: BrowserRouter })
   const { getByTestId } = page
   return {
     page,
