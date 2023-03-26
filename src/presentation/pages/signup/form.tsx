@@ -2,7 +2,7 @@ import React, { type ChangeEvent, useContext } from 'react'
 import { Input } from '@/presentation/components'
 import Context from '@/presentation/contexts/form-context'
 
-export const SignUpForm = () => {
+export const SignUpForm = ({ onSubmit }: Props) => {
   const { credentials, setCredentials } = useContext(Context)
 
   const handleInputValues = (e: ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +13,7 @@ export const SignUpForm = () => {
   }
 
   return (
-    <form data-testid="signup-form">
+    <form onSubmit={onSubmit} data-testid="signup-form">
       <fieldset>
         <label hidden>E-mail</label>
         <Input
@@ -64,4 +64,8 @@ export const SignUpForm = () => {
       </button>
     </form>
   )
+}
+
+type Props = {
+  onSubmit: (values: unknown) => void
 }

@@ -35,6 +35,8 @@ export const SignUp = () => {
     })
   }, [credentials.email, credentials.password])
 
+  const handleSubmit = (values: unknown) => {}
+
   return (
     <div className="container mx-auto">
       <div>
@@ -48,12 +50,11 @@ export const SignUp = () => {
 
       <Card>
         <Context.Provider value={{ credentials, setCredentials }}>
-          <SignUpForm />
+          <SignUpForm onSubmit={handleSubmit} />
         </Context.Provider>
         <div className="mt-3 mb-3 mx-auto">
           <button
             className="flex justify-end mt-2 text-md text-gray-600 hover:underline mx-auto"
-            data-testid="signup-button"
             onClick={() => {
               navigate('/')
             }}
