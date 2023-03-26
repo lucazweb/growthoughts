@@ -22,17 +22,10 @@ describe('signin page tests', () => {
     expect(form).toBeTruthy()
   })
 
-  // test('should start with button sigin-in disabled', () => {
-  //   const page = makeSut()
-  //   const { getByTestId } = page
-  //   const button = getByTestId('signin-button')
-  //   expect(button).toBeDisabled()
-  // })
-
-  // test('should render signup button', () => {
-  //   const page = makeSut()
-  //   const { getByTestId } = page
-  //   const button = getByTestId('signup-button')
-  //   expect(button).toBeTruthy()
-  // })
+  test('should start with register button disabled', () => {
+    const page = makeSut()
+    const { getByTestId } = page
+    const button = getByTestId('signup-button')
+    expect(button).toBeDisabled()
+  })
 })
