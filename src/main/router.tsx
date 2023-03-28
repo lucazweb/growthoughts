@@ -1,14 +1,14 @@
 import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { SignIn } from '@/presentation/pages'
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    Component: SignIn,
-  },
-])
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { SignIn, SignUp } from '@/presentation/pages'
 
 export default function Router() {
-  return <RouterProvider router={router} />
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" index element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
