@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card, CardProgress } from '@/presentation/components'
+import { Card } from '@/presentation/components'
 import { SignInForm } from './form'
 import Context from '@/presentation/contexts/form-context'
 import { signInValidation as validation } from './signin-validation-factory'
@@ -42,12 +42,6 @@ export const SignIn = () => {
           Organize e conclua suas metas
         </h3>
       </div>
-      <CardProgress
-        title="3 meses de academia"
-        percentage={50}
-        status="Em andamento"
-        endDate="22 de Maio de 2023"
-      />
 
       <Card>
         <Context.Provider value={{ credentials, setCredentials }}>
