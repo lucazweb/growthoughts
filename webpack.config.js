@@ -58,6 +58,7 @@ module.exports = {
       writeToDisk: true,
     },
     liveReload: true,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

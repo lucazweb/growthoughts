@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Card } from '@/presentation/components'
-import { SignInForm } from './form'
-import Context from '@/presentation/contexts/form-context'
-import { signInValidation as validation } from './signin-validation-factory'
+import { useNavigate } from 'react-router-dom'
 
-export const SignIn = () => {
+import { SignUpForm } from './form'
+import Context from '@/presentation/contexts/form-context'
+import { signInValidation as validation } from './signup-validation-factory'
+
+export const SignUp = () => {
   const [credentials, setCredentials] = useState<{
     email: string
     password: string
+    repeatPassword: string
     errors: Record<string, string | null>
   }>({
     email: '',
     password: '',
+    repeatPassword: '',
     errors: {},
   })
 
@@ -32,6 +35,8 @@ export const SignIn = () => {
     })
   }, [credentials.email, credentials.password])
 
+  const handleSubmit = (values: unknown) => {}
+
   return (
     <div className="container mx-auto">
       <div>
@@ -45,17 +50,16 @@ export const SignIn = () => {
 
       <Card>
         <Context.Provider value={{ credentials, setCredentials }}>
-          <SignInForm />
+          <SignUpForm onSubmit={handleSubmit} />
         </Context.Provider>
         <div className="mt-3 mb-3 mx-auto">
           <button
             className="flex justify-end mt-2 text-md text-gray-600 hover:underline mx-auto"
-            data-testid="signup-button"
             onClick={() => {
-              navigate('/signup')
+              navigate('/')
             }}
           >
-            Criar uma conta
+            Já tenho uma conta
           </button>
         </div>
       </Card>
