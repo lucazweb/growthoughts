@@ -30,6 +30,7 @@
     "html-webpack-plugin": "^5.5.0",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
+    "json-server": "^0.17.3",
     "lint-staged": "^13.2.0",
     "postcss-loader": "^7.0.2",
     "postcss-preset-env": "^8.0.1",
@@ -58,6 +59,7 @@
   "scripts": {
     "start": "webpack && webpack-dev-server --hot --open",
     "test": "jest --passWithNoTests --no-cache",
-    "test:watch": "jest --watch --no-cache"
+    "test:watch": "jest --watch --no-cache",
+    "json-server:watch": "json-server --watch json-server-db.json --static off --port 3004"
   }
 }
