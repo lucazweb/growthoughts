@@ -22,7 +22,6 @@ export const MainWrapper = tw.div`
 export const Content = tw.div`
   flex 
   h-full 
-  items-center 
   justify-center 
   bg-white 
   text-center 
