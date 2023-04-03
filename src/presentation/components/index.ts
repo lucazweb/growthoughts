@@ -1,3 +1,5 @@
 export * from './card/card'
 export * from './input/input'
 export * from './card-progress/card-progress'
+export * from './sidebar/sidebar'
+export * from './templates/layout/layout'

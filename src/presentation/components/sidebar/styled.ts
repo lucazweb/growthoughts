@@ -1,13 +1,8 @@
 import tw from 'tailwind-styled-components'
-import styled from 'styled-components'
 
-export const StyledAside = styled.aside`
-  height: 90.5vh;
-`
-
-export const SidebarWrapper = tw(StyledAside)`
+export const SidebarWrapper = tw.aside`
   flex 
-  w-1/3
+  w-1/5
   flex-col 
   space-y-2 
   border-r-2 
