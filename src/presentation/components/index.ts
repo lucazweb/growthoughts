@@ -1,5 +1,6 @@
 export * from './card/card'
 export * from './input/input'
+export * from './input-floating-label/input-floating-label'
 export * from './grid'
 export * from './card-progress/card-progress'
 export * from './sidebar/sidebar'
