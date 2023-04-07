@@ -24,7 +24,7 @@ export const TextArea = ({
         data-testid="textarea-component"
         className={`w-full rounded-md border ${
           errorMessage ? 'border-red-700' : 'border-[#e0e0e0]'
-        } bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#138353] focus:shadow-md mt-3`}
+        } bg-white py-2 px-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#138353] focus:shadow-md mt-3`}
         onChange={handleChange}
         value={value}
       />

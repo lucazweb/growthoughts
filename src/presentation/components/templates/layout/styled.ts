@@ -4,8 +4,7 @@ export const LayoutWrapper = tw.div`
   flex 
   min-h-screen 
   flex-row 
-  bg-gray-100 
-  text-gray-800"
+ 
 `
 export const MainWrapper = tw.div`
   main 
@@ -23,9 +22,4 @@ export const Content = tw.div`
   flex 
   h-full 
   justify-center 
-  bg-white 
-  text-center 
-  text-5xl 
-  font-bold 
-  shadow-md
 `

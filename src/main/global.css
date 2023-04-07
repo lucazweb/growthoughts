@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 
-body, html {
-  background-color: #feffeb;
+body {
+  background-color: #F7F7EB;
 }
 
 /* REACT CIRCULAR PROGRESS  */
