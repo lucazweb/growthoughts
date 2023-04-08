@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { TextArea } from './textarea'
 
 const makeSut = (props = {}) => {
-  const utils = render(<TextArea {...props} />)
+  const utils = render(<TextArea data-testid="textarea-component" {...props} />)
   const textarea = screen.getByTestId<HTMLInputElement>('textarea-component')
   return { textarea, ...utils }
 }
