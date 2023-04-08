@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactComponent as PersonSvg } from './person.svg'
+import personSVG from './person.svg'
 
 import {
   DashboardHeader,
@@ -19,7 +19,7 @@ export const Dashboard: React.FunctionComponent = () => {
       </DashboardHeader>
       <IntroContent>
         <ImageWrapper>
-          <PersonSvg />
+          <img data-testid="intro-image" alt="person" src={personSVG} />
         </ImageWrapper>
         <StartButton data-testid="start-button">Criar um objetivo</StartButton>
       </IntroContent>
