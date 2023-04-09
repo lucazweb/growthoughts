@@ -11,7 +11,7 @@ type RowProps = {
 
 export const Row = ({ children, maxCols }: PropsWithChildren & RowProps) => {
   return (
-    <div className="flex">
+    <div className="flex w-full">
       <Context.Provider value={{ maxCols }}>{children}</Context.Provider>
     </div>
   )
@@ -20,7 +20,7 @@ export const Row = ({ children, maxCols }: PropsWithChildren & RowProps) => {
 export const Col = ({ size, children }: PropsWithChildren & ColProps) => {
   const { maxCols } = useContext<{ maxCols: number }>(Context)
   return size && maxCols ? (
-    <div className={`w-${size}/${maxCols} p-1 `}>{children}</div>
+    <div className={`w-${size}/${maxCols} p-1`}>{children}</div>
   ) : (
     <div className="w-full p-1">{children}</div>
   )
