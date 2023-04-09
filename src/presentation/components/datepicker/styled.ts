@@ -7,9 +7,10 @@ export const DatePickerWrapper = styled.div`
     padding: 4px;
     box-size: boder-box;
     cursor: pointer;
+    border: 1px dashed #ccc;
     &:focus {
       background: khaki;
-      border: none;
+      border: 1px dashed #ccc;
       outline: none;
     }
   }
