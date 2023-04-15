@@ -3,11 +3,11 @@ export type Goal = {
   name: string
   start: {
     date: string
-    description: string
+    description?: string
   }
   end: {
     date: string
-    description: string
+    description?: string
   }
   description: string
   percentage: number
@@ -18,14 +18,14 @@ export type Goal = {
   review?: string
 }
 
-type Risk = {
+export type Risk = {
   name: string
   level: RiskLevel
 }
 
-type RiskLevel = 'low' | 'moderate' | 'high'
+export type RiskLevel = 'low' | 'moderate' | 'high'
 
-type Step = {
+export type Step = {
   name: string
   isComplete: boolean
 }
