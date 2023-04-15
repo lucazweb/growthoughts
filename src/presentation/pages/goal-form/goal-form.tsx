@@ -1,22 +1,13 @@
 /* eslint-disable quotes */
 import React, { useState, useRef } from 'react'
+import { FaChevronCircleRight } from 'react-icons/fa'
+import { Row, Col, Grid } from 'react-flexbox-grid'
 import { type Step, Stepper } from '@/presentation/components/steps/steps'
+import { type Goal } from '@/domain/models/goal'
 import { useOnClickOutside } from '@/presentation/hooks'
 import Context from '@/presentation/contexts/form-context'
 
-import personSVG from './person.svg'
-import { InitialGoalData } from './steps/initial-goal-data'
-
-export type GoalFormState = {
-  pickerCTRL: {
-    startOpen: boolean
-    endOpen: boolean
-  }
-  goal: {
-    startDate?: Date
-    endDate?: Date
-  }
-}
+import stepData, { INITIAL_STEPS } from './steps'
 
 export const GoalForm: React.FunctionComponent = () => {
   const [state, setState] = useState<GoalFormState>({
@@ -24,41 +15,17 @@ export const GoalForm: React.FunctionComponent = () => {
       startOpen: false,
       endOpen: false,
     },
+    steps: INITIAL_STEPS,
     goal: {
-      startDate: undefined,
-      endDate: undefined,
+      start: {
+        date: undefined,
+      },
+      end: {
+        date: undefined,
+      },
+      decisions: [],
     },
   })
-
-  // const [pickerCTRL, setpickerCTRL] = useState({
-  //   startOpen: false,
-  //   endOpen: false,
-  // })
-  // const [startDate, setStartDate] = useState<Date | undefined>()
-  // const [endDate, setEndDate] = useState<Date | undefined>()
-  const [steps, setSteps] = useState<Step[]>([
-    {
-      order: 1,
-      title: 'Informações iniciais',
-      isComplete: true,
-    },
-    {
-      order: 2,
-      title: 'Decisões',
-      isComplete: false,
-      isCurrent: true,
-    },
-    {
-      order: 3,
-      title: 'Ações táticas',
-      isComplete: false,
-    },
-    {
-      order: 4,
-      title: 'Métricas',
-      isComplete: false,
-    },
-  ])
 
   const ref = useRef()
 
@@ -72,49 +39,94 @@ export const GoalForm: React.FunctionComponent = () => {
     })
   })
 
+  const current = stepData[state.steps.find((s) => s.isCurrent).order]
+
   return (
-    <div>
-      <Stepper
-        steps={steps}
-        onClick={(step, steps) => {
-          setSteps(
-            steps.map((s) => ({
-              ...s,
-              isCurrent: s.order === step.order,
-            }))
-          )
-        }}
-      />
-      <div className="flex">
-        <div className="1/3">
-          <div className="mx-auto w-2/3 mb-3 mt-3">
-            <h1 className="text-2xl mb-12">
-              <em>
-                "Se não sabe aonde quer chegar, qualquer caminho serve.." mas
-                não é o caso!
-              </em>
-            </h1>
-            <img
-              data-testid="initial-form-image"
-              alt="montain of success"
-              src={personSVG}
-            />
-            <h2 className="text-2xl mt-10">
-              Comece detalhando a situação atual e o objetivo a ser alcançado.
-            </h2>
-          </div>
-        </div>
-        <div className="w-2/3">
-          <Context.Provider
-            value={{
-              state,
-              setState,
-            }}
-          >
-            <InitialGoalData />
-          </Context.Provider>
-        </div>
-      </div>
-    </div>
+    <Grid>
+      <Row>
+        <Col md={12}>
+          <Row>
+            <Col md={12}>
+              <Stepper
+                steps={state.steps}
+                onClick={(step) => {
+                  setState({
+                    ...state,
+                    steps: state.steps.map((s) => ({
+                      ...s,
+                      isCurrent: s.order === step.order,
+                    })),
+                  })
+                }}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col md={7}>
+              <div className="mx-auto w-2/3 mb-3 mt-3">
+                <h1 className="text-2xl mb-12">
+                  <em>{current.title}</em>
+                </h1>
+                <img
+                  data-testid="initial-form-image"
+                  alt="montain of success"
+                  src={current.image}
+                />
+                <h2 className="text-2xl mt-10">{current.hint}</h2>
+              </div>
+            </Col>
+            <Col md={5}>
+              <Context.Provider
+                value={{
+                  state,
+                  setState,
+                }}
+              >
+                <form>
+                  <div
+                    style={{ height: '70vh' }}
+                    className="flex flex-col justify-between"
+                  >
+                    {current.form}
+                    <div className="flex w-full pl-14">
+                      <div className="flex w-full">
+                        <button
+                          disabled
+                          data-testid="next-step-button"
+                          className="bg-green-600 border disabled:bg-gray-300 disabled:cursor-not-allowed border-gray-200 transition-colors hover:bg-green-700 align-middle text-white py-2 px-4 rounded inline-flex h-12 items-center w-full gap-2"
+                        >
+                          <FaChevronCircleRight />
+                          <span>Avançar</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </Context.Provider>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </Grid>
   )
+}
+
+interface GoalAdapter extends Partial<Omit<Goal, 'start' | 'end'>> {
+  start?: {
+    date?: string
+    description?: string
+  }
+  end?: {
+    date?: string
+    description?: string
+  }
+}
+
+export type GoalFormState = {
+  pickerCTRL: {
+    startOpen: boolean
+    endOpen: boolean
+  }
+  steps: Step[]
+  goal: GoalAdapter
 }
