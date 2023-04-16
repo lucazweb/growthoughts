@@ -6,7 +6,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const InputFloatingLabel = (props: InputProps) => {
+export const InputFloatingLabel = ({ errorMessage, ...props }: InputProps) => {
   return (
     <div className="relative z-0 mb-6 w-full group">
       <input
