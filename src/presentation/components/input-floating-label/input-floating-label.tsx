@@ -22,6 +22,14 @@ export const InputFloatingLabel = ({ errorMessage, ...props }: InputProps) => {
       >
         {props.label}
       </label>
+      {errorMessage && (
+        <p
+          data-testid="input-error-message"
+          className="text-red-700 mt-1 text-sm"
+        >
+          {errorMessage || 'Algo deu errado'}
+        </p>
+      )}
     </div>
   )
 }
