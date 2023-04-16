@@ -4,6 +4,7 @@ import { Decisions } from './decisions'
 
 import personSVG from './person.svg'
 import personDecisions from './person_decisions.svg'
+import fitnessPerson from './fitness_stats.svg'
 
 type StepData = {
   title: string
@@ -40,6 +41,21 @@ const stepData: Record<number, StepData> = {
             Exemplo.. <strong>Parar de beber.</strong>
           </em>
         </p>
+      </>
+    ),
+  },
+  3: {
+    form: <Decisions />,
+    image: fitnessPerson,
+    title: 'Quais ações táticas irá realizar para completar seu objetivo?',
+    hint: (
+      <>
+        <span>
+          Se deseja emagrecer, um bom exemplo de <strong>ação tática</strong> é
+          <strong>
+            <em> planejar as refeições diariamente</em>
+          </strong>
+        </span>
       </>
     ),
   },
