@@ -11,7 +11,7 @@ export type Goal = {
   }
   description: string
   percentage: number
-  successMetrics: Step[]
+  successMetrics: Metric[]
   actions: Step[]
   risks: Risk[]
   decisions: Step[]
@@ -28,4 +28,10 @@ export type RiskLevel = 'low' | 'moderate' | 'high'
 export type Step = {
   name: string
   isComplete: boolean
+}
+
+export type Metric = {
+  date: string
+  isComplete: boolean
+  name: string
 }

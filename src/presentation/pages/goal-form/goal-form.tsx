@@ -24,6 +24,7 @@ export const GoalForm: React.FunctionComponent = () => {
         date: undefined,
       },
       decisions: [],
+      successMetrics: [],
     },
   })
 

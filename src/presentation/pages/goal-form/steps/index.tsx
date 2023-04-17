@@ -5,6 +5,10 @@ import { Decisions } from './decisions'
 import personSVG from './person.svg'
 import personDecisions from './person_decisions.svg'
 import fitnessPerson from './fitness_stats.svg'
+import compass from './result.svg'
+
+import { Actions } from './actions'
+import { Metrics } from './metrics'
 
 type StepData = {
   title: string
@@ -45,7 +49,7 @@ const stepData: Record<number, StepData> = {
     ),
   },
   3: {
-    form: <Decisions />,
+    form: <Actions />,
     image: fitnessPerson,
     title: 'Quais ações táticas irá realizar para completar seu objetivo?',
     hint: (
@@ -55,6 +59,19 @@ const stepData: Record<number, StepData> = {
           <strong>
             <em> planejar as refeições diariamente</em>
           </strong>
+        </span>
+      </>
+    ),
+  },
+  4: {
+    form: <Metrics />,
+    image: compass,
+    title: 'Métricas são as bússola que nos guia para o sucesso.',
+    hint: (
+      <>
+        <span>
+          Crie <strong>métricas</strong> para a realização dos seus objetivos,
+          com isso será possível acompanhar o seu progresso
         </span>
       </>
     ),

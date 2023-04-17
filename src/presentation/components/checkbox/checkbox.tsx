@@ -12,7 +12,7 @@ export const Checkbox = ({
   ...rest
 }: CheckboxProps) => {
   return (
-    <div className="flex items-center items-start mb-4">
+    <div className="flex items-center">
       <input
         {...rest}
         data-testid="checkbox-component"
