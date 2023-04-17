@@ -1,10 +1,10 @@
 import { type Step } from '@/domain/models/goal'
 import React, { useState } from 'react'
-import { Col } from 'react-flexbox-grid'
+import { Row, Col } from 'react-flexbox-grid'
 import { FaPlusCircle, FaTimesCircle } from 'react-icons/fa'
-import { Row } from '../grid'
 import { Checkbox } from '../checkbox/checkbox'
 import { InputFloatingLabel } from '../input-floating-label/input-floating-label'
+import { List, ListItem } from './styled'
 
 export type ListMakerProps = {
   list: Step[]
@@ -85,10 +85,20 @@ export const ListMaker = ({
       <Row>
         <Col md={12}>
           {list.length > 0 ? (
-            <ul>
+            <List
+              style={{
+                listStyle: 'disc',
+              }}
+            >
               {list.map((item, i) => (
-                <li key={i} className="flex gap-3" data-testid="item">
-                  {isCheckList && <Checkbox label={item.name} disabled />}
+                <ListItem key={i} data-testid="item">
+                  <span>
+                    {isCheckList ? (
+                      <Checkbox label={item.name} disabled />
+                    ) : (
+                      <span>{item.name}</span>
+                    )}
+                  </span>
                   <FaTimesCircle
                     data-testid="item-remove-button"
                     onClick={() => {
@@ -96,9 +106,9 @@ export const ListMaker = ({
                     }}
                     className="text-gray-400 hover:text-red-500 cursor-pointer"
                   />
-                </li>
+                </ListItem>
               ))}
-            </ul>
+            </List>
           ) : (
             <span data-testid="list-placeholder">Nada aqui ainda..</span>
           )}
