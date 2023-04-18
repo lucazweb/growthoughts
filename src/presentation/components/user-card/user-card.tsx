@@ -19,7 +19,7 @@ export const UserCard = ({
       <img
         src={user.image}
         alt="aji"
-        className="align-self flex-grow-0 w-24 h-24 object-cover rounded-md"
+        className="align-self flex-grow-0 w-20 h-20 object-cover rounded-md"
       />
 
       <UserCardInfo>

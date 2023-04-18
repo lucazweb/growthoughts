@@ -5,7 +5,7 @@ import { SidebarContent, SidebarWrapper } from './styled'
 
 export const Sidebar = ({ children }: PropsWithChildren) => {
   return (
-    <SidebarWrapper data-testid="sidebar" style={{ height: '90.5vh' }}>
+    <SidebarWrapper data-testid="sidebar" style={{ height: '100vh' }}>
       <UserCard
         user={{
           image: 'https://randomuser.me/api/portraits/women/54.jpg',
