@@ -5,6 +5,7 @@ import { FaPlusCircle, FaTimesCircle } from 'react-icons/fa'
 import { Checkbox } from '../checkbox/checkbox'
 import { InputFloatingLabel } from '../input-floating-label/input-floating-label'
 import { List, ListItem } from './styled'
+import placeholder from './check_option.svg'
 
 export type ListMakerProps = {
   list: Step[]
@@ -52,7 +53,7 @@ export const ListMaker = ({
 
   return (
     <>
-      <Row>
+      <Row className="items-center">
         <Col md={11}>
           <InputFloatingLabel
             data-testid="item-name-input"
@@ -110,7 +111,19 @@ export const ListMaker = ({
               ))}
             </List>
           ) : (
-            <span data-testid="list-placeholder">Nada aqui ainda..</span>
+            <>
+              <span
+                data-testid="list-placeholder"
+                className="text-gray-500 italic"
+              >
+                Nada aqui ainda..
+              </span>
+              <img
+                className="mt-8 opacity-30"
+                src={placeholder}
+                alt="placeholder"
+              />
+            </>
           )}
         </Col>
       </Row>
