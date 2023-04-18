@@ -7,6 +7,7 @@ import { InputFloatingLabel } from '../input-floating-label/input-floating-label
 import { List, ListItem } from './styled'
 import { Datepicker } from '../datepicker/datepicker'
 import { format, parseISO } from 'date-fns'
+import placeholder from './check_time.svg'
 import pt from 'date-fns/locale/pt-BR'
 
 export type ListDateMakerProps = {
@@ -61,56 +62,62 @@ export const ListDateMaker = ({
     <>
       <Row>
         <Col md={12}>
-          <Row>
-            <Col md={4} className=" flex items-center">
-              {picker ? (
-                <Datepicker
-                  data-testid="start-date-input"
-                  open={!!picker}
-                  selected={item.date ? parseISO(item.date) : undefined}
-                  onChange={(date: Date) => {
-                    console.log(date)
-                    setItem({ ...item, date: date.toISOString() })
-                    setPicker(false)
-                  }}
-                />
-              ) : (
-                <span
-                  data-testid="start-date-label"
-                  className="cursor-pointer hover:text-blue-600 flex gap-3 align-middle"
-                  onClick={() => {
-                    setPicker(true)
-                  }}
-                >
-                  {item.date
-                    ? format(parseISO(item.date), "dd 'de' MMMM 'de' yyyy", {
-                        locale: pt,
-                      })
-                    : 'Selecione a data'}
-                  <FaInfoCircle color="#999" />
-                </span>
-              )}
-            </Col>
-            <Col md={8}>
-              <Row>
-                <Col md={11}>
-                  <InputFloatingLabel
-                    data-testid="item-name-input"
-                    label={inputPlaceholder}
-                    autoComplete="off"
-                    value={item.name}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === 'Enter' &&
-                        item.name.length >= minNameLength
-                      )
-                        update()
-                    }}
-                    onChange={(e) => {
-                      setItem({ ...item, name: e.target.value })
-                    }}
-                    errorMessage={error}
-                  />
+          <Row className="border-b border-dashed border-gray-200 mb-4">
+            <Col md={12}>
+              <Row className="items-center">
+                <Col md={11} className="flex gap-6 items-center">
+                  <div className="">
+                    {picker ? (
+                      <Datepicker
+                        data-testid="start-date-input"
+                        open={!!picker}
+                        selected={item.date ? parseISO(item.date) : undefined}
+                        onChange={(date: Date) => {
+                          console.log(date)
+                          setItem({ ...item, date: date.toISOString() })
+                          setPicker(false)
+                        }}
+                      />
+                    ) : (
+                      <span
+                        data-testid="item-date-label"
+                        className="cursor-pointer text-gray-500 items-center hover:text-blue-600 flex gap-3  "
+                        onClick={() => {
+                          setPicker(true)
+                        }}
+                      >
+                        {item.date
+                          ? format(
+                              parseISO(item.date),
+                              "dd 'de' MMMM 'de' yyyy",
+                              {
+                                locale: pt,
+                              }
+                            )
+                          : 'Selecione a data'}
+                        <FaInfoCircle color="#999" />
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ width: '60%' }}>
+                    <InputFloatingLabel
+                      data-testid="item-name-input"
+                      label={inputPlaceholder}
+                      autoComplete="off"
+                      value={item.name}
+                      onKeyDown={(e) => {
+                        if (
+                          e.key === 'Enter' &&
+                          item.name.length >= minNameLength
+                        )
+                          update()
+                      }}
+                      onChange={(e) => {
+                        setItem({ ...item, name: e.target.value })
+                      }}
+                      errorMessage={error}
+                    />
+                  </div>
                 </Col>
                 <Col md={1}>
                   <button
@@ -159,7 +166,19 @@ export const ListDateMaker = ({
               ))}
             </List>
           ) : (
-            <span data-testid="list-placeholder">Nada aqui ainda..</span>
+            <>
+              <span
+                data-testid="list-placeholder"
+                className="text-gray-500 italic"
+              >
+                Nada aqui ainda..
+              </span>
+              <img
+                className="mt-8 opacity-30"
+                src={placeholder}
+                alt="placeholder"
+              />
+            </>
           )}
         </Col>
       </Row>
