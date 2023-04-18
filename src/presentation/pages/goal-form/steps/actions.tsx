@@ -24,6 +24,13 @@ export const Actions = () => {
   return (
     <Row>
       <Col md={12}>
+        <h3 className="text-1xl mb-4">
+          Que <strong>ações táticas</strong> precisa tomar para que
+          <strong> NOME_DO_OBJETIVO </strong>
+          seja possível?
+        </h3>
+      </Col>
+      <Col md={12}>
         <ListMaker
           list={state.goal.decisions}
           inputPlaceholder="Quer ações táticas precisa tomar?"

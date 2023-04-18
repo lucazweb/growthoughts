@@ -8,6 +8,7 @@ import { useOnClickOutside } from '@/presentation/hooks'
 import Context from '@/presentation/contexts/form-context'
 
 import stepData, { INITIAL_STEPS } from './steps'
+import { Card } from '@/presentation/components'
 
 export const GoalForm: React.FunctionComponent = () => {
   const [state, setState] = useState<GoalFormState>({
@@ -63,7 +64,7 @@ export const GoalForm: React.FunctionComponent = () => {
             </Col>
           </Row>
           <Row>
-            <Col md={7}>
+            <Col md={6}>
               <div className="mx-auto w-2/3 mb-3 mt-3">
                 <h1 className="text-2xl mb-12">
                   <em>{current.title}</em>
@@ -76,33 +77,35 @@ export const GoalForm: React.FunctionComponent = () => {
                 <h2 className="text-2xl mt-10">{current.hint}</h2>
               </div>
             </Col>
-            <Col md={5}>
+            <Col md={6}>
               <Context.Provider
                 value={{
                   state,
                   setState,
                 }}
               >
-                <form>
-                  <div
-                    style={{ height: '70vh' }}
-                    className="flex flex-col justify-between"
-                  >
-                    {current.form}
-                    <div className="flex w-full pl-14">
+                <Card>
+                  <form>
+                    <div
+                      style={{ height: '70vh' }}
+                      className="flex flex-col justify-between pl-4 pr-4"
+                    >
+                      {current.form}
                       <div className="flex w-full">
-                        <button
-                          disabled
-                          data-testid="next-step-button"
-                          className="bg-green-600 border disabled:bg-gray-300 disabled:cursor-not-allowed border-gray-200 transition-colors hover:bg-green-700 align-middle text-white py-2 px-4 rounded inline-flex h-12 items-center w-full gap-2"
-                        >
-                          <FaChevronCircleRight />
-                          <span>Avançar</span>
-                        </button>
+                        <div className="flex w-full">
+                          <button
+                            disabled
+                            data-testid="next-step-button"
+                            className="bg-green-600 border disabled:bg-gray-300 disabled:cursor-not-allowed border-gray-200 transition-colors hover:bg-green-700 align-middle text-white py-2 px-4 rounded inline-flex h-12 items-center w-full gap-2"
+                          >
+                            <FaChevronCircleRight />
+                            <span>Avançar</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </Card>
               </Context.Provider>
             </Col>
           </Row>

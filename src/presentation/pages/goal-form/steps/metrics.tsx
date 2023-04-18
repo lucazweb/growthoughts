@@ -24,6 +24,14 @@ export const Metrics = () => {
   return (
     <Row>
       <Col md={12}>
+        <h3 className="text-1xl mb-4">
+          Quais <strong>datas</strong> e <strong>realizações</strong> são
+          importantes para medir
+          <strong> NOME_DO_OBJETIVO </strong>
+          seja possível?
+        </h3>
+      </Col>
+      <Col md={12}>
         <ListDateMaker
           list={state.goal.successMetrics}
           inputPlaceholder="Nome da métrica"
