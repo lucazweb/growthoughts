@@ -4,7 +4,11 @@
       "version": "detect"
     }
   },
-  "extends": ["standard-with-typescript", "plugin:react/recommended", "prettier"],
+  "extends": [
+    "standard-with-typescript",
+    "plugin:react/recommended",
+    "prettier"
+  ],
   "plugins": ["react"],
   "parserOptions": {
     "project": "./tsconfig.json"
@@ -25,7 +29,7 @@
     "comma-dangle": "off",
     "react/no-unescaped-entities": "off",
     "@typescript/comma-dangle": "off",
-    "@typescript-eslint/prefer-nullish-coalescing": "off"
-
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/consistent-type-imports": "off"
   }
 }
