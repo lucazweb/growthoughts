@@ -1,5 +1,5 @@
 /* eslint-disable quotes */
-import React, { useContext } from 'react'
+import React, { ChangeEvent, useContext } from 'react'
 import { TextArea, Datepicker } from '@/presentation/components'
 import { StyledPointWrapper } from '../styled'
 import { InputFloatingLabel } from '@/presentation/components/input-floating-label/input-floating-label'
@@ -16,6 +16,20 @@ export const InitialGoalData = () => {
     setState: React.Dispatch<React.SetStateAction<GoalFormState>>
   }>(Context)
 
+  const handleDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setState({
+      ...state,
+      goal: {
+        ...state.goal,
+        [name]: {
+          ...state.goal.start,
+          description: value,
+        },
+      },
+    })
+  }
+
   return (
     <>
       <Row>
@@ -26,6 +40,16 @@ export const InitialGoalData = () => {
                 data-testid="input-goal-name"
                 label="Nome do objetivo a ser alcançado"
                 autoComplete="off"
+                value={state.goal.name}
+                onChange={(e) => {
+                  setState({
+                    ...state,
+                    goal: {
+                      ...state.goal,
+                      name: e.target.value,
+                    },
+                  })
+                }}
               />
             </Col>
           </Row>
@@ -102,6 +126,9 @@ export const InitialGoalData = () => {
                     data-testid="start-description"
                     placeholder="Descreva a situação atual"
                     rows={5}
+                    name="start"
+                    value={state.goal.start.description}
+                    onChange={handleDescription}
                   />
                 </Col>
               </Row>
@@ -172,9 +199,11 @@ export const InitialGoalData = () => {
                 <FaInfoCircle color="#999" />
               </div>
               <TextArea
+                name="end"
                 data-testid="end-description"
                 placeholder="Descreva a situação final"
                 rows={5}
+                onChange={handleDescription}
               />
             </Col>
           </Row>

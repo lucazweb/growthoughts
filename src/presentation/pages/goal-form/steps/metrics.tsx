@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Context from '@/presentation/contexts/form-context'
-import { type GoalFormState } from '../goal-form'
+import { DynamicTitle, type GoalFormState } from '../goal-form'
 import { type Metric } from '@/domain/models/goal'
 import { Col, Row } from 'react-flexbox-grid'
 import { ListDateMaker } from '@/presentation/components/list-date-maker/list-date-maker'
@@ -24,12 +24,16 @@ export const Metrics = () => {
   return (
     <Row>
       <Col md={12}>
-        <h3 className="text-1xl mb-4">
-          Quais <strong>datas</strong> e <strong>realizações</strong> são
-          importantes para medir
-          <strong> NOME_DO_OBJETIVO </strong>
-          seja possível?
-        </h3>
+        <DynamicTitle
+          content={
+            <span>
+              Quais <strong>datas</strong> e <strong>conquistas</strong> são
+              importantes para medir
+            </span>
+          }
+          goalName={state.goal.name}
+          isQuestion
+        />
       </Col>
       <Col md={12}>
         <ListDateMaker

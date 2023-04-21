@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Context from '@/presentation/contexts/form-context'
-import { type GoalFormState } from '../goal-form'
+import { DynamicTitle, type GoalFormState } from '../goal-form'
 import { type Step } from '@/domain/models/goal'
 import { Col, Row } from 'react-flexbox-grid'
 import { ListMaker } from '@/presentation/components/list-maker/list-maker'
@@ -24,10 +24,16 @@ export const Decisions = () => {
   return (
     <Row>
       <Col md={12}>
-        <h3 className="text-1xl mb-4">
-          Que decisões precisa tomar para que<strong> NOME_DO_OBJETIVO </strong>
-          seja possível?
-        </h3>
+        <DynamicTitle
+          content={
+            <span>
+              Que <strong>decisões</strong> precisa tomar para realizar o
+              objetivo..
+            </span>
+          }
+          goalName={state.goal.name}
+          isQuestion
+        />
       </Col>
       <Col md={12}>
         <ListMaker

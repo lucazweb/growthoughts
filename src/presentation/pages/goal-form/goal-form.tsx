@@ -42,6 +42,24 @@ export const GoalForm: React.FunctionComponent = () => {
   })
 
   const current = stepData[state.steps.find((s) => s.isCurrent).order]
+  const isButtonDisabled =
+    !state.goal.name || !state.goal.start.date || !state.goal.end.date
+
+  const handleStep = (step: Step) => {
+    setState({
+      ...state,
+      steps: state.steps.map((s) => ({
+        ...s,
+        isCurrent: s.order === step.order,
+      })),
+    })
+  }
+
+  const isLastStep = (steps: Step[], step: Step) => {
+    return (
+      steps.lastIndexOf(step) === steps.indexOf(steps[state.steps.length - 1])
+    )
+  }
 
   return (
     <Grid>
@@ -49,18 +67,7 @@ export const GoalForm: React.FunctionComponent = () => {
         <Col md={12}>
           <Row>
             <Col md={12}>
-              <Stepper
-                steps={state.steps}
-                onClick={(step) => {
-                  setState({
-                    ...state,
-                    steps: state.steps.map((s) => ({
-                      ...s,
-                      isCurrent: s.order === step.order,
-                    })),
-                  })
-                }}
-              />
+              <Stepper steps={state.steps} onClick={handleStep} />
             </Col>
           </Row>
           <Row>
@@ -91,18 +98,32 @@ export const GoalForm: React.FunctionComponent = () => {
                       className="flex flex-col justify-between pl-4 pr-4"
                     >
                       {current.form}
-                      <div className="flex w-full">
-                        <div className="flex w-full">
+                      <Row>
+                        <Col md={12}>
                           <button
-                            disabled
+                            onClick={() => {
+                              const current = state.steps.find(
+                                (s) => s.isCurrent
+                              )
+
+                              if (!isLastStep(state.steps, current)) {
+                                handleStep(
+                                  state.steps.find(
+                                    (s) => s.order === current.order + 1
+                                  )
+                                )
+                              }
+                            }}
+                            type="button"
+                            disabled={isButtonDisabled}
                             data-testid="next-step-button"
                             className="bg-green-600 border disabled:bg-gray-300 disabled:cursor-not-allowed border-gray-200 transition-colors hover:bg-green-700 align-middle text-white py-2 px-4 rounded inline-flex h-12 items-center w-full gap-2"
                           >
                             <FaChevronCircleRight />
                             <span>Avançar</span>
                           </button>
-                        </div>
-                      </div>
+                        </Col>
+                      </Row>
                     </div>
                   </form>
                 </Card>
@@ -112,6 +133,25 @@ export const GoalForm: React.FunctionComponent = () => {
         </Col>
       </Row>
     </Grid>
+  )
+}
+
+export const DynamicTitle = (props: {
+  content: JSX.Element
+  goalName: string
+  isQuestion?: boolean
+}) => {
+  return (
+    <h3
+      style={{ fontSize: '1.4em', lineHeight: '1.6em' }}
+      className="mb-4 pt-2 pb-4"
+    >
+      {props.content} <br />
+      <strong className=" text-gray-800   ml-2 mr-2 italic bg-yellow-100">
+        {props.goalName}
+      </strong>
+      {!!props.isQuestion && '?'}
+    </h3>
   )
 }
 
