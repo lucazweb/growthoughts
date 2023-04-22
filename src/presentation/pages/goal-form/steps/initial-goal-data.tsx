@@ -7,7 +7,7 @@ import { FaInfoCircle } from 'react-icons/fa'
 import { format, parseISO } from 'date-fns'
 import Context from '@/presentation/contexts/form-context'
 import pt from 'date-fns/locale/pt-BR'
-import { type GoalFormState } from '../goal-form'
+import { DynamicTitle, type GoalFormState } from '../goal-form'
 import { Row, Col } from 'react-flexbox-grid'
 
 export const InitialGoalData = () => {
@@ -18,16 +18,129 @@ export const InitialGoalData = () => {
 
   const handleDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target
+
     setState({
       ...state,
       goal: {
         ...state.goal,
         [name]: {
-          ...state.goal.start,
+          ...state.goal[name],
           description: value,
         },
       },
     })
+  }
+
+  const renderPoint = (point: string, color: string) => {
+    return (
+      <StyledPointWrapper data-testid="pointA" background={color}>
+        {point}
+      </StyledPointWrapper>
+    )
+  }
+
+  const StageForm = ({
+    state,
+    stage,
+    color = '#ccc',
+  }: {
+    state: GoalFormState
+    stage: 'start' | 'end'
+    color: string
+  }) => {
+    const stateKey = stage === 'start' ? 'startOpen' : 'endOpen'
+    const point = {
+      start: 'A',
+      end: 'B',
+    }
+
+    return (
+      <Row className="mb-4">
+        <Col sm={0} md={2}>
+          <div className="hidden md:block">
+            {renderPoint(point[stage], color)}
+          </div>
+        </Col>
+        <Col md={10}>
+          <Row>
+            <Col
+              md={12}
+              className="flex md:block align-middle gap-4 items-center"
+            >
+              <div className="block md:hidden">
+                {renderPoint(point[stage], color)}
+              </div>
+              {state.pickerCTRL[stateKey] ? (
+                <Datepicker
+                  data-testid={`${stage}-date-input`}
+                  open={state.pickerCTRL[stateKey]}
+                  selected={
+                    state.goal[stage].date
+                      ? parseISO(state.goal[stage].date)
+                      : undefined
+                  }
+                  onChange={(date: Date) => {
+                    setState({
+                      ...state,
+                      pickerCTRL: {
+                        ...state.pickerCTRL,
+                        [stateKey]: false,
+                      },
+                      goal: {
+                        ...state.goal,
+                        [stage]: {
+                          ...state.goal[stage],
+                          date: date.toISOString(),
+                        },
+                      },
+                    })
+                  }}
+                />
+              ) : (
+                <span
+                  data-testid={`${stage}-date-label`}
+                  className="cursor-pointer hover:text-blue-600 flex gap-3 align-middle items-center"
+                  onClick={() => {
+                    setState({
+                      ...state,
+                      pickerCTRL: {
+                        ...state.pickerCTRL,
+                        [stateKey]: true,
+                      },
+                    })
+                  }}
+                >
+                  {state.goal[stage].date
+                    ? format(
+                        parseISO(state.goal[stage].date),
+                        "dd 'de' MMMM 'de' yyyy",
+                        {
+                          locale: pt,
+                        }
+                      )
+                    : 'Selecione a data'}
+                  <FaInfoCircle color="#999" />
+                </span>
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <TextArea
+                data-testid={`${stage}-description`}
+                name={stage}
+                placeholder={`Descreva a situação ${
+                  stage === 'start' ? 'atual' : 'desejada'
+                }`}
+                rows={5}
+                value={state.goal[stage].description}
+                onChange={handleDescription}
+              />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    )
   }
 
   return (
@@ -36,6 +149,16 @@ export const InitialGoalData = () => {
         <Col md={12}>
           <Row>
             <Col md={12}>
+              <DynamicTitle
+                content={
+                  <span>
+                    Insira um nome para o seu objetivo de sucessso, e descreva a
+                    <strong className="text-red-800"> situação atual</strong>, e
+                    <strong className="text-green-700"> desejada</strong> ...
+                  </span>
+                }
+                goalName={state.goal.name}
+              />
               <InputFloatingLabel
                 data-testid="input-goal-name"
                 label="Nome do objetivo a ser alcançado"
@@ -54,159 +177,8 @@ export const InitialGoalData = () => {
             </Col>
           </Row>
 
-          <Row>
-            <Col md={2}>
-              <StyledPointWrapper
-                data-testid="pointA"
-                background="rgb(255, 255, 204)"
-              >
-                A
-              </StyledPointWrapper>
-            </Col>
-            <Col md={10}>
-              <Row>
-                <Col md={12}>
-                  {state.pickerCTRL.startOpen ? (
-                    <Datepicker
-                      data-testid="start-date-input"
-                      open={state.pickerCTRL.startOpen}
-                      selected={
-                        state.goal.start.date
-                          ? parseISO(state.goal.start.date)
-                          : undefined
-                      }
-                      onChange={(date: Date) => {
-                        setState({
-                          ...state,
-                          pickerCTRL: {
-                            ...state.pickerCTRL,
-                            startOpen: false,
-                          },
-                          goal: {
-                            ...state.goal,
-                            start: {
-                              ...state.goal.start,
-                              date: date.toISOString(),
-                            },
-                          },
-                        })
-                      }}
-                    />
-                  ) : (
-                    <span
-                      data-testid="start-date-label"
-                      className="cursor-pointer hover:text-blue-600 flex gap-3 align-middle"
-                      onClick={() => {
-                        setState({
-                          ...state,
-                          pickerCTRL: {
-                            ...state.pickerCTRL,
-                            startOpen: true,
-                          },
-                        })
-                      }}
-                    >
-                      {state.goal.start.date
-                        ? format(
-                            parseISO(state.goal.start.date),
-                            "dd 'de' MMMM 'de' yyyy",
-                            {
-                              locale: pt,
-                            }
-                          )
-                        : 'Selecione a data'}
-                      <FaInfoCircle color="#999" />
-                    </span>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md={12}>
-                  <TextArea
-                    data-testid="start-description"
-                    placeholder="Descreva a situação atual"
-                    rows={5}
-                    name="start"
-                    value={state.goal.start.description}
-                    onChange={handleDescription}
-                  />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-
-          <Row className="mt-4">
-            <Col md={2}>
-              <StyledPointWrapper
-                data-testid="pointB"
-                background="rgb(140, 198, 63)"
-              >
-                B
-              </StyledPointWrapper>
-            </Col>
-            <Col md={10}>
-              <div className="flex gap-2">
-                {state.pickerCTRL.endOpen ? (
-                  <Datepicker
-                    open={state.pickerCTRL.endOpen}
-                    selected={
-                      state.goal.end.date
-                        ? parseISO(state.goal.end.date)
-                        : undefined
-                    }
-                    onChange={(date: Date) => {
-                      setState({
-                        ...state,
-                        pickerCTRL: {
-                          ...state.pickerCTRL,
-                          endOpen: false,
-                        },
-                        goal: {
-                          ...state.goal,
-                          end: {
-                            ...state.goal.end,
-                            date: date.toISOString(),
-                          },
-                        },
-                      })
-                    }}
-                  />
-                ) : (
-                  <span
-                    data-testid="end-date-label"
-                    className="cursor-pointer hover:text-blue-600"
-                    onClick={() => {
-                      setState({
-                        ...state,
-                        pickerCTRL: {
-                          ...state.pickerCTRL,
-                          endOpen: true,
-                        },
-                      })
-                    }}
-                  >
-                    {state.goal.end.date
-                      ? format(
-                          parseISO(state.goal.end.date),
-                          "dd 'de' MMMM 'de' yyyy",
-                          {
-                            locale: pt,
-                          }
-                        )
-                      : 'Selecione a data'}
-                  </span>
-                )}
-                <FaInfoCircle color="#999" />
-              </div>
-              <TextArea
-                name="end"
-                data-testid="end-description"
-                placeholder="Descreva a situação final"
-                rows={5}
-                onChange={handleDescription}
-              />
-            </Col>
-          </Row>
+          <StageForm state={state} stage="start" color="#fac7c7" />
+          <StageForm state={state} stage="end" color="#669966" />
         </Col>
       </Row>
     </>

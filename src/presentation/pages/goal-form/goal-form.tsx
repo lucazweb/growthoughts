@@ -65,13 +65,13 @@ export const GoalForm: React.FunctionComponent = () => {
     <Grid>
       <Row>
         <Col md={12}>
-          <Row>
+          <Row className="hidden md:flex">
             <Col md={12}>
               <Stepper steps={state.steps} onClick={handleStep} />
             </Col>
           </Row>
           <Row>
-            <Col md={6}>
+            <Col md={6} className="hidden md:block">
               <div className="mx-auto w-2/3 mb-3 mt-3">
                 <h1 className="text-2xl mb-12">
                   <em>{current.title}</em>
@@ -84,7 +84,7 @@ export const GoalForm: React.FunctionComponent = () => {
                 <h2 className="text-2xl mt-10">{current.hint}</h2>
               </div>
             </Col>
-            <Col md={6}>
+            <Col sm={12} md={6}>
               <Context.Provider
                 value={{
                   state,
@@ -93,10 +93,7 @@ export const GoalForm: React.FunctionComponent = () => {
               >
                 <Card>
                   <form>
-                    <div
-                      style={{ height: '70vh' }}
-                      className="flex flex-col justify-between pl-4 pr-4"
-                    >
+                    <div className="flex flex-col justify-between pl-4 pr-4">
                       {current.form}
                       <Row>
                         <Col md={12}>

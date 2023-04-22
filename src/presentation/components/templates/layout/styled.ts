@@ -8,15 +8,14 @@ export const LayoutWrapper = tw.div`
 `
 export const MainWrapper = tw.div`
   main 
-  -ml-48 
   flex 
   flex-grow 
   flex-col 
-  p-4 
   transition-all 
   duration-150 
-  ease-in 
+  ease-in
   md:ml-0
+  md:p-4 
 `
 export const Content = tw.div`
   flex 
