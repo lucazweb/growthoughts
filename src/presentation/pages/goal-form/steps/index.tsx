@@ -1,14 +1,15 @@
-import React from 'react'
-import { InitialGoalData } from './initial-goal-data'
-import { Decisions } from './decisions'
+import React from "react"
+import { InitialGoalData } from "./initial-goal-data"
+import { Decisions } from "./decisions"
 
-import personSVG from './person.svg'
-import personDecisions from './person_decisions.svg'
-import fitnessPerson from './fitness_stats.svg'
-import compass from './result.svg'
+import personSVG from "./assets/person.svg"
+import personDecisions from "./assets/person_decisions.svg"
+import fitnessPerson from "./assets/fitness_stats.svg"
+import compass from "./assets/result.svg"
 
-import { Actions } from './actions'
-import { Metrics } from './metrics'
+import { Actions } from "./actions"
+import { Metrics } from "./metrics"
+import { Overview } from "./overview"
 
 type StepData = {
   title: string
@@ -22,7 +23,7 @@ const stepData: Record<number, StepData> = {
     form: <InitialGoalData />,
     image: personSVG,
     title:
-      'Se não sabe aonde quer chegar, qualquer caminho serve.. mas não é o caso!',
+      "Se não sabe aonde quer chegar, qualquer caminho serve.. mas não é o caso!",
     hint: (
       <span>
         Comece detalhando a situação atual e o objetivo a ser alcançado.
@@ -33,7 +34,7 @@ const stepData: Record<number, StepData> = {
     form: <Decisions />,
     image: personDecisions,
     title:
-      'São as decisões que nos dão força para alcançar um objetivo, sem desculpas.',
+      "São as decisões que nos dão força para alcançar um objetivo, sem desculpas.",
     hint: (
       <>
         <span>
@@ -51,7 +52,7 @@ const stepData: Record<number, StepData> = {
   3: {
     form: <Actions />,
     image: fitnessPerson,
-    title: 'Quais ações táticas irá realizar para completar seu objetivo?',
+    title: "Quais ações táticas irá realizar para completar seu objetivo?",
     hint: (
       <>
         <span>
@@ -66,7 +67,20 @@ const stepData: Record<number, StepData> = {
   4: {
     form: <Metrics />,
     image: compass,
-    title: 'Métricas são as bússola que nos guia para o sucesso.',
+    title: "Métricas são as bússola que nos guia para o sucesso.",
+    hint: (
+      <>
+        <span>
+          Crie <strong>métricas</strong> para a realização dos seus objetivos,
+          com isso será possível acompanhar o seu progresso
+        </span>
+      </>
+    ),
+  },
+  5: {
+    form: <Overview />,
+    image: compass,
+    title: "Métricas são as bússola que nos guia para o sucesso.",
     hint: (
       <>
         <span>
@@ -81,24 +95,29 @@ const stepData: Record<number, StepData> = {
 export const INITIAL_STEPS = [
   {
     order: 1,
-    title: 'Informações iniciais',
+    title: "Informações iniciais",
     isComplete: true,
     isCurrent: true,
   },
   {
     order: 2,
-    title: 'Decisões',
+    title: "Decisões",
     isComplete: false,
     isCurrent: false,
   },
   {
     order: 3,
-    title: 'Ações táticas',
+    title: "Ações táticas",
     isComplete: false,
   },
   {
     order: 4,
-    title: 'Métricas',
+    title: "Métricas",
+    isComplete: false,
+  },
+  {
+    order: 5,
+    title: "Concluir",
     isComplete: false,
   },
 ]
