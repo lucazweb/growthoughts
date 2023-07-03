@@ -1,10 +1,10 @@
 /* eslint-disable quotes */
 import React, { useContext } from "react"
+import { Row, Col } from "react-flexbox-grid"
 import { InputFloatingLabel } from "@/presentation/components/input-floating-label/input-floating-label"
 import Context from "@/presentation/contexts/form-context"
-import { DynamicTitle, GoalFormState } from "../goal-form"
-import { Row, Col } from "react-flexbox-grid"
 import { StageForm } from "@/presentation/components/stage-form/stage-form"
+import { GoalFormState } from "../goal-form"
 
 export const InitialGoalData = () => {
   const { state, setState } = useContext<{
@@ -18,19 +18,6 @@ export const InitialGoalData = () => {
         <Col md={12}>
           <Row>
             <Col md={12}>
-              <DynamicTitle
-                content={
-                  !state.goal.name && (
-                    <span>
-                      Insira um nome para o seu objetivo de sucessso, e descreva
-                      a<strong className="text-red-800"> situação atual</strong>
-                      , e<strong className="text-green-700"> desejada</strong>{" "}
-                      ...
-                    </span>
-                  )
-                }
-                goalName={state.goal.name}
-              />
               <InputFloatingLabel
                 data-testid="input-goal-name"
                 label="Nome do objetivo a ser alcançado"
@@ -48,7 +35,6 @@ export const InitialGoalData = () => {
               />
             </Col>
           </Row>
-
           <StageForm
             state={state}
             stage="start"

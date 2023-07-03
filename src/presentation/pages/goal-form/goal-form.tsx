@@ -20,11 +20,11 @@ export const GoalForm: React.FunctionComponent = () => {
       name: "",
       start: {
         date: undefined,
-        description: "",
+        description: "Estado inicial",
       },
       end: {
         date: undefined,
-        description: "",
+        description: "Estado final",
       },
       decisions: [],
       actions: [],
@@ -46,7 +46,11 @@ export const GoalForm: React.FunctionComponent = () => {
 
   const current = stepData[state.steps.find((s) => s.isCurrent).order]
   const isButtonDisabled =
-    !state.goal.name || !state.goal.start.date || !state.goal.end.date
+    !state.goal.name ||
+    !state.goal.start.date ||
+    !state.goal.start.description ||
+    !state.goal.end.date ||
+    !state.goal.end.description
 
   const handleStep = (step: Step) => {
     setState({
@@ -63,6 +67,8 @@ export const GoalForm: React.FunctionComponent = () => {
       steps.lastIndexOf(step) === steps.indexOf(steps[state.steps.length - 1])
     )
   }
+
+  const currentStep = state.steps.find((s) => s.isCurrent)
 
   return (
     <Grid>
@@ -98,18 +104,14 @@ export const GoalForm: React.FunctionComponent = () => {
                   <form>
                     <div className="flex flex-col justify-between pl-4 pr-4">
                       {current.form}
-                      <Row>
+                      <Row className="mt-6">
                         <Col md={12}>
                           <button
                             onClick={() => {
-                              const current = state.steps.find(
-                                (s) => s.isCurrent
-                              )
-
-                              if (!isLastStep(state.steps, current)) {
+                              if (!isLastStep(state.steps, currentStep)) {
                                 handleStep(
                                   state.steps.find(
-                                    (s) => s.order === current.order + 1
+                                    (s) => s.order === currentStep.order + 1
                                   )
                                 )
                               }
@@ -119,8 +121,13 @@ export const GoalForm: React.FunctionComponent = () => {
                             data-testid="next-step-button"
                             className="bg-green-600 border disabled:bg-gray-300 disabled:cursor-not-allowed border-gray-200 transition-colors hover:bg-green-700 align-middle text-white py-2 px-4 rounded inline-flex h-12 items-center w-full gap-2"
                           >
-                            <FaChevronCircleRight />
-                            <span>Avançar</span>
+                            {!isLastStep(state.steps, currentStep) ? (
+                              <>
+                                <FaChevronCircleRight /> <span>Avançar</span>
+                              </>
+                            ) : (
+                              <span>Concluir</span>
+                            )}
                           </button>
                         </Col>
                       </Row>
