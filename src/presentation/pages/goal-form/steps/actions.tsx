@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import Context from '@/presentation/contexts/form-context'
-import { DynamicTitle, type GoalFormState } from '../goal-form'
-import { type Step } from '@/domain/models/goal'
-import { Col, Row } from 'react-flexbox-grid'
-import { ListMaker } from '@/presentation/components/list-maker/list-maker'
+import React, { useContext } from "react"
+import { Col, Row } from "react-flexbox-grid"
+import Context from "@/presentation/contexts/form-context"
+import { DynamicTitle, GoalFormState } from "../goal-form"
+import { Step } from "@/domain/models/goal"
+import { ListMaker } from "@/presentation/components/list-maker/list-maker"
 
 export const Actions = () => {
   const { state, setState } = useContext<{
@@ -16,7 +16,7 @@ export const Actions = () => {
       ...state,
       goal: {
         ...state.goal,
-        decisions: list,
+        actions: list,
       },
     })
   }
@@ -37,7 +37,7 @@ export const Actions = () => {
       </Col>
       <Col md={12}>
         <ListMaker
-          list={state.goal.decisions}
+          list={state.goal.actions}
           inputPlaceholder="Quer ações táticas precisa tomar?"
           handleUpdate={handleDecision}
         />

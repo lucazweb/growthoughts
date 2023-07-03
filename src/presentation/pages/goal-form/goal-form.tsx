@@ -1,14 +1,13 @@
-/* eslint-disable quotes */
-import React, { useState, useRef } from 'react'
-import { FaChevronCircleRight } from 'react-icons/fa'
-import { Row, Col, Grid } from 'react-flexbox-grid'
-import { type Step, Stepper } from '@/presentation/components/steps/steps'
-import { type Goal } from '@/domain/models/goal'
-import { useOnClickOutside } from '@/presentation/hooks'
-import Context from '@/presentation/contexts/form-context'
+import React, { useState, useRef } from "react"
+import { FaChevronCircleRight } from "react-icons/fa"
+import { Row, Col, Grid } from "react-flexbox-grid"
+import { Step, Stepper } from "@/presentation/components/steps/steps"
+import { Goal } from "@/domain/models/goal"
+import { useOnClickOutside } from "@/presentation/hooks"
+import Context from "@/presentation/contexts/form-context"
 
-import stepData, { INITIAL_STEPS } from './steps'
-import { Card } from '@/presentation/components'
+import stepData, { INITIAL_STEPS } from "./steps"
+import { Card } from "@/presentation/components"
 
 export const GoalForm: React.FunctionComponent = () => {
   const [state, setState] = useState<GoalFormState>({
@@ -18,13 +17,17 @@ export const GoalForm: React.FunctionComponent = () => {
     },
     steps: INITIAL_STEPS,
     goal: {
+      name: "",
       start: {
         date: undefined,
+        description: "",
       },
       end: {
         date: undefined,
+        description: "",
       },
       decisions: [],
+      actions: [],
       successMetrics: [],
     },
   })
@@ -140,19 +143,19 @@ export const DynamicTitle = (props: {
 }) => {
   return (
     <h3
-      style={{ fontSize: '1.4em', lineHeight: '1.6em' }}
+      style={{ fontSize: "1.4em", lineHeight: "1.6em" }}
       className="mb-4 pt-2 pb-4"
     >
       {props.content} <br />
       <strong className=" text-gray-800   ml-2 mr-2 italic bg-yellow-100">
         {props.goalName}
       </strong>
-      {!!props.isQuestion && '?'}
+      {!!props.isQuestion && "?"}
     </h3>
   )
 }
 
-interface GoalAdapter extends Partial<Omit<Goal, 'start' | 'end'>> {
+interface GoalAdapter extends Partial<Omit<Goal, "start" | "end">> {
   start?: {
     date?: string
     description?: string

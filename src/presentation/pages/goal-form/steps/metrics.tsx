@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import Context from '@/presentation/contexts/form-context'
-import { DynamicTitle, type GoalFormState } from '../goal-form'
-import { type Metric } from '@/domain/models/goal'
-import { Col, Row } from 'react-flexbox-grid'
-import { ListDateMaker } from '@/presentation/components/list-date-maker/list-date-maker'
+import React, { useContext } from "react"
+import { Col, Row } from "react-flexbox-grid"
+import Context from "@/presentation/contexts/form-context"
+import { DynamicTitle, GoalFormState } from "../goal-form"
+import { Metric } from "@/domain/models/goal"
+import { ListDateMaker } from "@/presentation/components/list-date-maker/list-date-maker"
 
 export const Metrics = () => {
   const { state, setState } = useContext<{
