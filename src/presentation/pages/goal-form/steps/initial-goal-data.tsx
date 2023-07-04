@@ -5,6 +5,7 @@ import { InputFloatingLabel } from "@/presentation/components/input-floating-lab
 import Context from "@/presentation/contexts/form-context"
 import { StageForm } from "@/presentation/components/stage-form/stage-form"
 import { GoalFormState } from "../goal-form"
+import { addDays, addYears, parse, parseISO, subDays } from "date-fns"
 
 export const InitialGoalData = () => {
   const { state, setState } = useContext<{
@@ -22,6 +23,7 @@ export const InitialGoalData = () => {
                 data-testid="input-goal-name"
                 label="Nome do objetivo a ser alcançado"
                 autoComplete="off"
+                isLarge
                 value={state.goal.name}
                 onChange={(e) => {
                   setState({
@@ -37,11 +39,20 @@ export const InitialGoalData = () => {
           </Row>
           <StageForm
             state={state}
+            includeDateIntervals={[
+              { start: subDays(new Date(), 1), end: addYears(new Date(), 2) },
+            ]}
             stage="start"
             color="#fac7c7"
             setState={setState}
           />
           <StageForm
+            includeDateIntervals={[
+              {
+                start: addDays(parseISO(state.goal.start.date), 1),
+                end: addYears(parseISO(state.goal.start.date), 2),
+              },
+            ]}
             state={state}
             stage="end"
             color="#669966"

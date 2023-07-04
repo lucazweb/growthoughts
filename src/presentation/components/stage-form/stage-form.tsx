@@ -13,9 +13,14 @@ export const StageForm = ({
   stage,
   color = "#ccc",
   setState,
+  includeDateIntervals,
 }: {
   state: GoalFormState
   stage: "start" | "end"
+  includeDateIntervals?: {
+    start: Date
+    end: Date
+  }[]
   color: string
   setState: React.Dispatch<React.SetStateAction<GoalFormState>>
 }) => {
@@ -35,7 +40,6 @@ export const StageForm = ({
 
   const handleDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target
-
     setState({
       ...state,
       goal: {
@@ -66,6 +70,7 @@ export const StageForm = ({
             </div>
             {state.pickerCTRL[stateKey] ? (
               <Datepicker
+                includeDateIntervals={includeDateIntervals}
                 data-testid={`${stage}-date-input`}
                 open={state.pickerCTRL[stateKey]}
                 selected={
@@ -121,8 +126,10 @@ export const StageForm = ({
         <Row>
           <Col md={12}>
             <TextArea
+              className="disabled:bg-gray-500 disabled:cursor-not-allowed"
               data-testid={`${stage}-description`}
               name={stage}
+              disabled={!state.goal[stage].date}
               placeholder={`Descreva a situação ${
                 stage === "start" ? "atual" : "desejada"
               }`}
