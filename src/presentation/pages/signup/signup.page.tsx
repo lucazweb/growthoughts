@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Row, Col, Grid } from 'react-flexbox-grid'
 import { Card } from '@/presentation/components'
 import { useNavigate } from 'react-router-dom'
 
@@ -38,7 +39,7 @@ export const SignUp = () => {
   const handleSubmit = (values: unknown) => {}
 
   return (
-    <div className="container mx-auto">
+    <Grid>
       <div>
         <h1 data-testid="app-title" className="text-6xl text-center mt-6 mb-6">
           GrowThoughts
@@ -48,21 +49,25 @@ export const SignUp = () => {
         </h3>
       </div>
 
-      <Card>
-        <Context.Provider value={{ credentials, setCredentials }}>
-          <SignUpForm onSubmit={handleSubmit} />
-        </Context.Provider>
-        <div className="mt-3 mb-3 mx-auto">
-          <button
-            className="flex justify-end mt-2 text-md text-gray-600 hover:underline mx-auto"
-            onClick={() => {
-              navigate('/')
-            }}
-          >
-            Já tenho uma conta
-          </button>
-        </div>
-      </Card>
-    </div>
+      <Row center="md">
+        <Col md={4}>
+          <Card>
+            <Context.Provider value={{ credentials, setCredentials }}>
+              <SignUpForm onSubmit={handleSubmit} />
+            </Context.Provider>
+            <div className="mt-3 mb-3 mx-auto">
+              <button
+                className="flex justify-end mt-2 text-md text-gray-600 hover:underline mx-auto"
+                onClick={() => {
+                  navigate('/')
+                }}
+              >
+                Já tenho uma conta
+              </button>
+            </div>
+          </Card>
+        </Col>
+      </Row>
+    </Grid>
   )
 }

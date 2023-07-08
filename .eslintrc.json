@@ -4,14 +4,24 @@
       "version": "detect"
     }
   },
-  "extends": ["standard-with-typescript", "plugin:react/recommended", "prettier"],
-  "plugins": ["react"],
+  "extends": [
+    "standard-with-typescript",
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:cypress/recommended"
+  ],
+  "plugins": ["react", "cypress"],
+  "env": {
+    "cypress/globals": true
+  },
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig-eslint.json"
   },
   "rules": {
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/consistent-type-imports": "off",
+    "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-misused-promises": "off",
@@ -25,7 +35,7 @@
     "comma-dangle": "off",
     "react/no-unescaped-entities": "off",
     "@typescript/comma-dangle": "off",
-    "@typescript-eslint/prefer-nullish-coalescing": "off"
-
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/restrict-template-expressions": "off"
   }
 }
