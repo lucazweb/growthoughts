@@ -9,28 +9,30 @@ import Context from "@/presentation/contexts/form-context"
 import stepData, { INITIAL_STEPS } from "./steps"
 import { Card } from "@/presentation/components"
 
+const INITIAL_FORM_STATE = {
+  pickerCTRL: {
+    startOpen: false,
+    endOpen: false,
+  },
+  steps: INITIAL_STEPS,
+  goal: {
+    name: "",
+    start: {
+      date: undefined,
+      description: "Estado inicial",
+    },
+    end: {
+      date: undefined,
+      description: "Estado final",
+    },
+    decisions: [],
+    actions: [],
+    successMetrics: [],
+  },
+}
+
 export const GoalForm: React.FunctionComponent = () => {
-  const [state, setState] = useState<GoalFormState>({
-    pickerCTRL: {
-      startOpen: false,
-      endOpen: false,
-    },
-    steps: INITIAL_STEPS,
-    goal: {
-      name: "",
-      start: {
-        date: undefined,
-        description: "Estado inicial",
-      },
-      end: {
-        date: undefined,
-        description: "Estado final",
-      },
-      decisions: [],
-      actions: [],
-      successMetrics: [],
-    },
-  })
+  const [state, setState] = useState<GoalFormState>(INITIAL_FORM_STATE)
 
   const ref = useRef()
 
@@ -101,7 +103,7 @@ export const GoalForm: React.FunctionComponent = () => {
                 }}
               >
                 <Card>
-                  <form>
+                  <form autoComplete="off">
                     <div className="flex flex-col justify-between pl-4 pr-4">
                       {current.form}
                       <Row className="mt-6">

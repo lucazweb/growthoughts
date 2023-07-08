@@ -1,19 +1,23 @@
 /* eslint-disable quotes */
-import { type Metric, type Step } from '@/domain/models/goal'
-import React, { useState } from 'react'
-import { Row, Col } from 'react-flexbox-grid'
-import { FaInfoCircle, FaPlusCircle, FaTimesCircle } from 'react-icons/fa'
-import { InputFloatingLabel } from '../input-floating-label/input-floating-label'
-import { List, ListItem } from './styled'
-import { Datepicker } from '../datepicker/datepicker'
-import { format, parseISO } from 'date-fns'
-import placeholder from './check_time.svg'
-import pt from 'date-fns/locale/pt-BR'
+import { type Metric, type Step } from "@/domain/models/goal"
+import React, { useState } from "react"
+import { Row, Col } from "react-flexbox-grid"
+import { FaInfoCircle, FaPlusCircle, FaTimesCircle } from "react-icons/fa"
+import { InputFloatingLabel } from "../input-floating-label/input-floating-label"
+import { List, ListItem } from "./styled"
+import { Datepicker } from "../datepicker/datepicker"
+import { format, parseISO } from "date-fns"
+import placeholder from "./check_time.svg"
+import pt from "date-fns/locale/pt-BR"
 
 export type ListDateMakerProps = {
   list: Metric[]
   isCheckList?: boolean
   inputPlaceholder?: string
+  includeDateIntervals?: {
+    start: Date
+    end: Date
+  }[]
   itemValidation?: {
     regex: RegExp
     errorMessage: string
@@ -27,8 +31,9 @@ export const ListDateMaker = ({
   itemValidation,
   inputPlaceholder,
   handleUpdate,
+  includeDateIntervals,
 }: ListDateMakerProps) => {
-  const [item, setItem] = useState<Partial<Metric>>({ name: '' })
+  const [item, setItem] = useState<Partial<Metric>>({ name: "" })
   const [picker, setPicker] = useState(false)
   const [error, setError] = useState<string>()
 
@@ -53,7 +58,7 @@ export const ListDateMaker = ({
           ...list,
           { name: item.name, date: item.date, isComplete: false },
         ])
-        setItem({ name: '' })
+        setItem({ name: "" })
       }
     }
   }
@@ -71,6 +76,7 @@ export const ListDateMaker = ({
                       <Datepicker
                         data-testid="start-date-input"
                         open={!!picker}
+                        includeDateIntervals={includeDateIntervals}
                         selected={item.date ? parseISO(item.date) : undefined}
                         onChange={(date: Date) => {
                           console.log(date)
@@ -94,12 +100,12 @@ export const ListDateMaker = ({
                                 locale: pt,
                               }
                             )
-                          : 'Selecione a data'}
+                          : "Selecione a data"}
                         <FaInfoCircle color="#999" />
                       </span>
                     )}
                   </div>
-                  <div style={{ width: '60%' }}>
+                  <div style={{ width: "60%" }}>
                     <InputFloatingLabel
                       data-testid="item-name-input"
                       label={inputPlaceholder}
@@ -107,7 +113,7 @@ export const ListDateMaker = ({
                       value={item.name}
                       onKeyDown={(e) => {
                         if (
-                          e.key === 'Enter' &&
+                          e.key === "Enter" &&
                           item.name.length >= minNameLength
                         )
                           update()
@@ -141,7 +147,7 @@ export const ListDateMaker = ({
           {list.length > 0 ? (
             <List
               style={{
-                listStyle: 'disc',
+                listStyle: "disc",
               }}
             >
               {list.map((item, i) => (

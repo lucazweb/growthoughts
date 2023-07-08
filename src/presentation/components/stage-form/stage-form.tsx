@@ -54,12 +54,12 @@ export const StageForm = ({
 
   return (
     <Row className="mb-4">
-      <Col sm={0} md={2}>
+      <Col sm={0} md={1}>
         <div className="hidden md:block">
           {renderPoint(point[stage], color)}
         </div>
       </Col>
-      <Col md={10}>
+      <Col md={11}>
         <Row>
           <Col
             md={12}
@@ -98,7 +98,7 @@ export const StageForm = ({
             ) : (
               <span
                 data-testid={`${stage}-date-label`}
-                className="cursor-pointer hover:text-blue-600 flex gap-3 align-middle items-center"
+                className="cursor-pointer hover:text-blue-600 flex gap-3 align-middle items-center text-lg"
                 onClick={() => {
                   setState({
                     ...state,

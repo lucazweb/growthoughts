@@ -4,6 +4,7 @@ import Context from "@/presentation/contexts/form-context"
 import { DynamicTitle, GoalFormState } from "../goal-form"
 import { Metric } from "@/domain/models/goal"
 import { ListDateMaker } from "@/presentation/components/list-date-maker/list-date-maker"
+import { parseISO } from "date-fns"
 
 export const Metrics = () => {
   const { state, setState } = useContext<{
@@ -37,6 +38,12 @@ export const Metrics = () => {
       </Col>
       <Col md={12}>
         <ListDateMaker
+          includeDateIntervals={[
+            {
+              start: parseISO(state.goal.start.date),
+              end: parseISO(state.goal.end.date),
+            },
+          ]}
           list={state.goal.successMetrics}
           inputPlaceholder="Nome da métrica"
           handleUpdate={handleMetrics}
