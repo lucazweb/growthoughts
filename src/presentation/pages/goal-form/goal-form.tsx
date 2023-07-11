@@ -1,10 +1,12 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { FaChevronCircleRight } from "react-icons/fa"
 import { Row, Col, Grid } from "react-flexbox-grid"
 import { Step, Stepper } from "@/presentation/components/steps/steps"
 import { Goal } from "@/domain/models/goal"
 import { useOnClickOutside } from "@/presentation/hooks"
 import Context from "@/presentation/contexts/form-context"
+import { GoalState, RootState, actions } from "@/infra/redux"
 
 import stepData, { INITIAL_STEPS } from "./steps"
 import { Card } from "@/presentation/components"
@@ -19,11 +21,11 @@ const INITIAL_FORM_STATE = {
     name: "",
     start: {
       date: undefined,
-      description: "Estado inicial",
+      description: "",
     },
     end: {
       date: undefined,
-      description: "Estado final",
+      description: "",
     },
     decisions: [],
     actions: [],
@@ -32,13 +34,25 @@ const INITIAL_FORM_STATE = {
 }
 
 export const GoalForm: React.FunctionComponent = () => {
-  const [state, setState] = useState<GoalFormState>(INITIAL_FORM_STATE)
+  const [goalState, setGoalState] = useState<GoalFormState>(INITIAL_FORM_STATE)
+  const [goal] = useSelector(({ goalSlice }: RootState) => goalSlice.list)
+
+  useEffect(() => {
+    if (goal) {
+      setGoalState({
+        ...goalState,
+        goal,
+      })
+    }
+  }, [goal])
+
+  const dispatch = useDispatch()
 
   const ref = useRef()
 
   useOnClickOutside(ref, () => {
-    setState({
-      ...state,
+    setGoalState({
+      ...goalState,
       pickerCTRL: {
         startOpen: false,
         endOpen: false,
@@ -46,18 +60,18 @@ export const GoalForm: React.FunctionComponent = () => {
     })
   })
 
-  const current = stepData[state.steps.find((s) => s.isCurrent).order]
+  const current = stepData[goalState.steps.find((s) => s.isCurrent).order]
   const isButtonDisabled =
-    !state.goal.name ||
-    !state.goal.start.date ||
-    !state.goal.start.description ||
-    !state.goal.end.date ||
-    !state.goal.end.description
+    !goalState.goal.name ||
+    !goalState.goal.start.date ||
+    !goalState.goal.start.description ||
+    !goalState.goal.end.date ||
+    !goalState.goal.end.description
 
   const handleStep = (step: Step) => {
-    setState({
-      ...state,
-      steps: state.steps.map((s) => ({
+    setGoalState({
+      ...goalState,
+      steps: goalState.steps.map((s) => ({
         ...s,
         isCurrent: s.order === step.order,
       })),
@@ -66,11 +80,12 @@ export const GoalForm: React.FunctionComponent = () => {
 
   const isLastStep = (steps: Step[], step: Step) => {
     return (
-      steps.lastIndexOf(step) === steps.indexOf(steps[state.steps.length - 1])
+      steps.lastIndexOf(step) ===
+      steps.indexOf(steps[goalState.steps.length - 1])
     )
   }
 
-  const currentStep = state.steps.find((s) => s.isCurrent)
+  const currentStep = goalState.steps.find((s) => s.isCurrent)
 
   return (
     <Grid>
@@ -78,7 +93,7 @@ export const GoalForm: React.FunctionComponent = () => {
         <Col md={12}>
           <Row className="hidden md:flex">
             <Col md={12}>
-              <Stepper steps={state.steps} onClick={handleStep} />
+              <Stepper steps={goalState.steps} onClick={handleStep} />
             </Col>
           </Row>
           <Row>
@@ -98,8 +113,8 @@ export const GoalForm: React.FunctionComponent = () => {
             <Col sm={12} md={6}>
               <Context.Provider
                 value={{
-                  state,
-                  setState,
+                  state: goalState,
+                  setState: setGoalState,
                 }}
               >
                 <Card>
@@ -110,12 +125,15 @@ export const GoalForm: React.FunctionComponent = () => {
                         <Col md={12}>
                           <button
                             onClick={() => {
-                              if (!isLastStep(state.steps, currentStep)) {
+                              if (!isLastStep(goalState.steps, currentStep)) {
                                 handleStep(
-                                  state.steps.find(
+                                  goalState.steps.find(
                                     (s) => s.order === currentStep.order + 1
                                   )
                                 )
+                              } else {
+                                // send data to store
+                                dispatch(actions.createGoal(goalState.goal))
                               }
                             }}
                             type="button"
@@ -123,7 +141,7 @@ export const GoalForm: React.FunctionComponent = () => {
                             data-testid="next-step-button"
                             className="bg-green-600 border disabled:bg-gray-300 disabled:cursor-not-allowed border-gray-200 transition-colors hover:bg-green-700 align-middle text-white py-2 px-4 rounded inline-flex h-12 items-center w-full gap-2"
                           >
-                            {!isLastStep(state.steps, currentStep) ? (
+                            {!isLastStep(goalState.steps, currentStep) ? (
                               <>
                                 <FaChevronCircleRight /> <span>Avançar</span>
                               </>
