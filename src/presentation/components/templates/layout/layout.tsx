@@ -1,7 +1,7 @@
-import React, { type PropsWithChildren } from 'react'
-import { FaPlus } from 'react-icons/fa'
-import { Content, LayoutWrapper, MainWrapper } from './styled'
-import { Sidebar } from '@/presentation/components'
+import React, { type PropsWithChildren } from "react"
+import { FaPlus } from "react-icons/fa"
+import { Content, LayoutWrapper, MainWrapper } from "./styled"
+import { Sidebar } from "@/presentation/components"
 
 export const Layout = ({ children }: PropsWithChildren) => {
   return (

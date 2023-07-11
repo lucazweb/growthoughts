@@ -19,6 +19,6 @@ export const MainWrapper = tw.div`
 `
 export const Content = tw.div`
   flex 
-  h-full 
-  justify-center 
+  h-full
+  pl-6
 `

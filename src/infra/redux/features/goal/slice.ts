@@ -14,7 +14,62 @@ export interface GoalState {
 
 const initialState: GoalState = {
   list: [{
-    name: "Desenvolver plataforma Growthoughts",
+    name: "Desenvolver Growthoughts",
+    start: {
+      date: "2023-07-10T03:00:00.000Z",
+      description: "App ainda em desenvolvimento",
+    },
+    end: {
+      date: "2023-07-20T03:00:00.000Z",
+      description: "Primeira versão da plataforma Growthoughs",
+    },
+    decisions: [
+      {
+        name: "Acreditar ser possível",
+        isComplete: false,
+      },
+      {
+        name: "Acreditar em si mesmo",
+        isComplete: false,
+      },
+      {
+        name: "Focar no seu melhor",
+        isComplete: false,
+      },
+    ],
+    actions: [
+      {
+        name: "Desenvolver um pouco todos os dias por 1 hora no mínimo",
+        isComplete: false,
+      },
+      {
+        name: "Criar backlog",
+        isComplete: false,
+      },
+      {
+        name: "Motivar-se todo dia para alcançar a sua meta",
+        isComplete: false,
+      },
+    ],
+    successMetrics: [
+      {
+        name: "Decisão de finalizar a app",
+        date: "2023-07-10T03:00:00.000Z",
+        isComplete: false,
+      },
+      {
+        name: "Prova de conceito",
+        date: "2023-07-12T03:00:00.000Z",
+        isComplete: false,
+      },
+      {
+        name: "Deploy da v 1.0",
+        date: "2023-07-14T03:00:00.000Z",
+        isComplete: false,
+      },
+    ],
+  }, {
+    name: "3 meses de academia",
     start: {
       date: "2023-07-10T03:00:00.000Z",
       description: "App ainda em desenvolvimento",
